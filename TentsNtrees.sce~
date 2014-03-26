@@ -67,8 +67,6 @@ function B = solveTentjeBoompje(A,R,K)
        if B(1,j) == x then
             if B(2,j) <> x & B(1,j-1) <> x & B(1,j+1) <> x & B(2,j) <> t & B(1,j-1) <> t & B(1,j+1) <> t then
                 B(1,j) = t
-            else
-                 B(1,j) = g
             end   
        end
     end
@@ -78,8 +76,6 @@ function B = solveTentjeBoompje(A,R,K)
        if B(rB,j) == x then
             if B(rB-1,j) <> x & B(rB,j-1) <> x & B(rB,j+1) <> x & B(rB-1,j) <> t & B(rB,j-1) <> t & B(rB,j+1) <> t then
                 B(rB,j) = t
-            else
-                B(rB,j) = g
             end   
        end
     end 
@@ -89,8 +85,6 @@ function B = solveTentjeBoompje(A,R,K)
        if B(i,1) == x then
            if B(i-1,1) <> x & B(i+1,1) <> x & B(i,2) <> x & B(i-1,1) <> t & B(i+1,1) <> t & B(i,2) <> t then
                B(i,1) = t
-           else
-               B(rB,j) = g
            end   
        end
     end
@@ -110,8 +104,6 @@ function B = solveTentjeBoompje(A,R,K)
        if B(1,1) == x then
             if B(2,1) <> x & B(1,2) <> x & B(2,1) <> t & B(1,2) <> t then
                 B(1,1) = t
-            else
-                 B(1,1) = g
             end   
        end
        //ok
@@ -129,8 +121,6 @@ function B = solveTentjeBoompje(A,R,K)
            if B(rB,1) == x then
             if B(rB-1,1) <> x & B(rB,2) <> x & B(rB-1,1) <> t & B(rB,2) <> t then
                 B(rB,1) = t
-            else
-                 B(rB,1) = g
             end   
        end
     
