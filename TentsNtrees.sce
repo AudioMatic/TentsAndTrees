@@ -24,12 +24,11 @@ function B = solveTentjeBoompje(A,R,K)
         if R(i) == 0
            // doorloop i-de rij
            for j =  1 : length(K)
-               if(A(i,j) == x)
+               if(B(i,j) == x & B(i,j) == x)
                    // verander dit door gras
                    B(i,j) = g
                end
            end
-           
         end
     end
      //check of dat in de Kolomvector een 0 staat.
@@ -37,7 +36,7 @@ function B = solveTentjeBoompje(A,R,K)
         if K(i) == 0
            // doorloop i-de kolom
            for j =  1 : length(R)
-               if(A(j,i) == x)
+               if(B(j,i) == x &  B(j,i) == x)
                    // verander dit door gras
                    B(j,i) = g
                end
@@ -51,7 +50,7 @@ function B = solveTentjeBoompje(A,R,K)
     for i = 1 : length(R)
         for j = 1 : length(K)
             // Controleer of dat links,rechts,onder en boven geen boom staat
-            if (A(i ,j)<> b) & (A(max(i-1,1),j)<> b) & (A(min(i+1,length(R)),j)<> b) & (A(i,max(j-1,1)))<>b & (A(i,min(j+1,length(K)))<> b) then 
+            if (A(i ,j)<> b) & (A(max(i-1,1),j)<> b) & (A(min(i+1,length(R)),j)<> b) & (A(i,max(j-1,1)))<>b & (A(i,min(j+1,length(K)))<> b &  B(i,j) == x) then 
                 B(i,j) = g
             end
         end
@@ -62,86 +61,8 @@ function B = solveTentjeBoompje(A,R,K)
  
  [rB,kB] = size(B) 
     
-     // eerste rij     
-    for(j=2:kB-1)
-       if B(1,j) == x then
-            if B(2,j) <> x & B(1,j-1) <> x & B(1,j+1) <> x & B(2,j) <> t & B(1,j-1) <> t & B(1,j+1) <> t then
-                B(1,j) = t
-            else
-                 B(1,j) = g
-            end   
-       end
-    end
     
-    // laatste rij
-    for(j=2:kB-1)
-       if B(rB,j) == x then
-            if B(rB-1,j) <> x & B(rB,j-1) <> x & B(rB,j+1) <> x & B(rB-1,j) <> t & B(rB,j-1) <> t & B(rB,j+1) <> t then
-                B(rB,j) = t
-            else
-                B(rB,j) = g
-            end   
-       end
-    end 
-    
-    // eerste kolom
-    for(i=2:rB-1)
-       if B(i,1) == x then
-           if B(i-1,1) <> x & B(i+1,1) <> x & B(i,2) <> x & B(i-1,1) <> t & B(i+1,1) <> t & B(i,2) <> t then
-               B(i,1) = t
-           else
-               B(rB,j) = g
-           end   
-       end
-    end
-    
-    // laatste kolom
-    for(i=2:rB-1)
-       if B(i,rB) == x then
-           if B(i-1,rB) <> x & B(i+1,rB) <> x & B(i,rB-1) <> x & B(i-1,rB) <> t & B(i+1,rB) <> t & B(i,rB-1) <> t then
-               B(i,rB) = t
-           else
-                B(i,rB) = g 
-           end   
-       end
-    end   
-  
-     // linkerbovenhoek
-       if B(1,1) == x then
-            if B(2,1) <> x & B(1,2) <> x & B(2,1) <> t & B(1,2) <> t then
-                B(1,1) = t
-            else
-                 B(1,1) = g
-            end   
-       end
-       //ok
-         
-    // rechterbovenhoek
-           if B(1,kB) == x then
-            if B(2,kB) <> x & B(1,kB-1) <> x & B(2,kB) <> t & B(1,kB-1) <> t then
-                B(1,kB) = t
-            else
-                 B(1,kB) = g
-            end   
-       end
-    
-    // linkeronderhoek
-           if B(rB,1) == x then
-            if B(rB-1,1) <> x & B(rB,2) <> x & B(rB-1,1) <> t & B(rB,2) <> t then
-                B(rB,1) = t
-            else
-                 B(rB,1) = g
-            end   
-       end
-    
-    // rechteronderhoek
-           if B(rB,kB) == x then
-            if B(rB-1,kB) <> x & B(rB,kB-1) <> x & B(rB-1,kB) <> t & B(rB,kB-1) <> t then
-                B(rB,kB) = t
-            end   
-       end
-      
-     // kijken naar vector kolom hoeveel vakjes er tentjes moeten zijn
+         // kijken naar vector kolom hoeveel vakjes er tentjes moeten zijn
      for(i=1:kB)
          aantalLegeVakjes = 0
          for(j=1:rB)
@@ -179,6 +100,95 @@ function B = solveTentjeBoompje(A,R,K)
                  end
              end
          end
+     end
+     
+     // eerste rij     
+    for(j=2:kB-1)
+       if B(1,j) == x then
+            if B(2,j) <> x & B(1,j-1) <> x & B(1,j+1) <> x & B(2,j) <> t & B(1,j-1) <> t & B(1,j+1) <> t & B(1,j) == x then
+                B(1,j) = t
+            else
+                 B(1,j) = g
+            end   
+       end
+    end
+    
+    // laatste rij
+    for(j=2:kB-1)
+       if B(rB,j) == x then
+            if B(rB-1,j) <> x & B(rB,j-1) <> x & B(rB,j+1) <> x & B(rB-1,j) <> t & B(rB,j-1) <> t & B(rB,j+1) <> t & B(rB,j) == x then
+                B(rB,j) = t
+            else
+                B(rB,j) = g
+            end   
+       end
+    end 
+    
+    // eerste kolom
+    for(i=2:rB-1)
+       if B(i,1) == x then
+           if B(i-1,1) <> x & B(i+1,1) <> x & B(i,2) <> x & B(i-1,1) <> t & B(i+1,1) <> t & B(i,2) <> t & B(i,1) == x then
+               B(i,1) = t
+           else
+               B(rB,j) = g
+           end   
+       end
+    end
+    
+    // laatste kolom
+    for(i=2:rB-1)
+       if B(i,rB) == x then
+           if B(i-1,rB) <> x & B(i+1,rB) <> x & B(i,rB-1) <> x & B(i-1,rB) <> t & B(i+1,rB) <> t & B(i,rB-1) <> t & B(i,rB) == x then
+               B(i,rB) = t
+           else
+                B(i,rB) = g 
+           end   
+       end
+    end   
+  
+     // linkerbovenhoek
+       if B(1,1) == x then
+            if B(2,1) <> x & B(1,2) <> x & B(2,1) <> t & B(1,2) <> t & B(1,1) == x then
+                B(1,1) = t
+            else
+                 B(1,1) = g
+            end   
+       end
+       //ok
+         
+    // rechterbovenhoek
+           if B(1,kB) == x then
+            if B(2,kB) <> x & B(1,kB-1) <> x & B(2,kB) <> t & B(1,kB-1) <> t & B(1,kB) == x then
+                B(1,kB) = t
+            else
+                 B(1,kB) = g
+            end   
+       end
+    
+    // linkeronderhoek
+           if B(rB,1) == x then
+            if B(rB-1,1) <> x & B(rB,2) <> x & B(rB-1,1) <> t & B(rB,2) <> t & B(rB,1) == x then
+                B(rB,1) = t
+            else
+                 B(rB,1) = g
+            end   
+       end
+    
+    // rechteronderhoek
+           if B(rB,kB) == x then
+            if B(rB-1,kB) <> x & B(rB,kB-1) <> x & B(rB-1,kB) <> t & B(rB,kB-1) <> t & B(rB,kB) == x then
+                B(rB,kB) = t
+            end   
+       end
+       
+       //midden
+       
+       for i = 2: kB-1
+           for j  = 2 : rB -1
+           if B(i-1,j)<> x & B(i-1,j) <> t & B(i+1,j)<> x & B(i+1,j) <> t & B(i,j-1)<> x & B(i,j-1) <> t & B(i,j+1)<> x & B(i,j+1) <> t & B(i-1,j-1) <> t & B(i+1,j+1) <> t & B(i+1,j-1) <> t & B(i-1,j+1) <> t & B(i,j) == x then
+               B(i,j) = t
+           end
+           end
      end
        
     Matplot(B)
