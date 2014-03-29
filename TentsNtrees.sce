@@ -55,14 +55,15 @@ function B = solveTentjeBoompje(A,R,K)
             end
         end
     end
-    
+    //That works ! ;) 
    placeTentjes(A,R,K,B)
    //Matplot(B)
 endfunction
 
 function placeTentjes(A,R,K,B)
  // TENTJES ZETTEN 
- 
+
+//STAP 2
  [rB,kB] = size(B) 
   AantalLegeVakjes = [ ]
     
@@ -101,6 +102,8 @@ function placeTentjes(A,R,K,B)
              end
          end
         end
+        
+        
         for(i=1:rB)
          if aantalLegeVakjes(i) == R(i) then
              for(j=1:kB)
@@ -110,14 +113,19 @@ function placeTentjes(A,R,K,B)
              end
          end
      end
-     
-         
+       
+   //Matplot(B)
+     //return
+    //disp('test')
+
+       //STAP 3
+     // Plaats gras rond tentjes als er nog lege vakjes zouden zijn.
      for i=1:length(R)
          for j=1:length(K)
              if B(i,j)==t then
                  for k=max(i-1,1):min(i+1,length(R))
                      for l=max(j-1,1):min(j+1,length(K))
-                         if B(l,k)==x then B(l,k)=g
+                         if B(k,l)==x then B(k,l)=g
                          end
                      end
                  end
@@ -125,7 +133,43 @@ function placeTentjes(A,R,K,B)
          end
      end
      
-     Matplot(B)
+    // Matplot(B)
+    // return
+   // disp('test')
+
+// STAP 4 
+// Ga na of er nog lege vakjes zijn rond een boom (en dat er rond die boom nog geen tentjes staan)
+// Als er nog maar één leeg vakje is, zet je daar een tentje
+    aantalLeeg = 0
+    oke = %F
+     for i=1:length(R)
+         for j=1:length(K)
+             if B(i,j)==b then
+                 aantalLeeg = 0 // reset aantalLeeg
+                 for k=max(i-1,1):min(i+1,length(R))
+                     for l=max(j-1,1):min(j+1,length(K))
+                         if B(k,l)==x then aantalLeeg = aantalLeeg + 1
+                         end
+                         if B(k,l)==t then oke=%T
+                         end
+                     end
+                 end
+                 if aantalLeeg==1 & oke==%F then
+                     for k=max(i-1,1):min(i+1,length(R))
+                        for l=max(j-1,1):min(j+1,length(K))
+                            if B(k,l)==x then B(k,l)=t
+                            end
+                        end
+                    end
+                end
+            end
+        end
+     end
+       
+
+
+
+ Matplot(B)
      return
     disp('test')
 
@@ -179,7 +223,7 @@ endfunction
 
 
 // voorbeeld
-
+//Werkt
 A1 = [x b b x x; 
       x x x x b; 
       x x x x x; 
@@ -194,7 +238,7 @@ B1 = [t b b t g;
       t b g g t]
 
 // voorbeeld 2
-
+// Werkt niet
 A2 = [x b x x x; 
       x x x x b; 
       x x b x x; 
@@ -207,5 +251,58 @@ B2 = [t b g g t;
       g t b g t; 
       g g g g b; 
       g g b t g]
+// Voorbeeld 3
+A3 = [x x b x x; 
+      b x x b x; 
+      x x x x x; 
+      b x x x x; 
+      x x x x b]
+K3 = [2 1 0 0 2]
+R3 = [1 1 1 1 1]         
+B3 = [g t b g g; 
+      b g g b t; 
+      t g g g g; 
+      b g g g t; 
+      t g g g b]
+  
+//K3 = [1 0 2 0 2]
+//R3 = [0 2 1 1 1]        
+//B3 = [g g g g b; 
+//      t b b g t; 
+//      g g t g b; 
+//      g g g g t; 
+//      g g t b g]
+ 
+K4 = [1 1 1 0 2] 
+R4 = [1 1 0 2 1]        
+B4 = [g g g b t; 
+      g t g g g; 
+      g b g g g; 
+      t b b b t; 
+      g g t g g]
+
+K5 = [2 0 1 1 1] 
+R5 = [2 0 1 1 1]   
+B5 = [g b t b t; 
+      b g g g g; 
+      t g g b g; 
+      b g g t g; 
+      t g g g g]
+ 
+K6 = [1 1 1 1 1]  
+R6 = [1 1 0 1 2]       
+B6 = [g g g t b; 
+      g t b g g; 
+      g g b g g; 
+      g g t g g; 
+      t b g b t]
+  
+K7 = [2 0 1 0 2]
+R7 = [1 1 1 1 1]        
+B7 = [g g g b t; 
+      t b b g g; 
+      g g t g g; 
+      t b g g b; 
+      g g g g t]     
       
-solveTentjeBoompje(A1,R1,K1)
+solveTentjeBoompje(A3,R3,K3)
