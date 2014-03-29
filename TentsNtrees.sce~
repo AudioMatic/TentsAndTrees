@@ -111,16 +111,19 @@ function placeTentjes(A,R,K,B)
          end
      end
      
-         
+      // Kijk of er in de buurt een tent staat
+    for i = 1 : length(R)
+        for j = 1 : length(K)
+            // Controleer of dat links,rechts,onder en boven een tent staat
+            if (B(max(i-1,1),j)== t) | (B(min(i+1,length(R)),j)== t) | (B(i,max(j-1,1))==t) | (B(i,min(j+1,length(K)))== t) &  B(i,j) == x then 
+                B(i,j) = g
+            end
+        end
+    end
+     
      for i=1:length(R)
          for j=1:length(K)
-             if B(i,j)==t then
-                 for k=max(i-1,1):min(i+1,length(R))
-                     for l=max(j-1,1):min(j+1,length(K))
-                         if B(l,k)==x then B(l,k)=g
-                         end
-                     end
-                 end
+             if )  then
              end
          end
      end
