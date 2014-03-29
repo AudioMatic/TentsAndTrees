@@ -168,10 +168,15 @@ function placeTentjes(A,R,K,B)
        
 
 
+//TODO
+// STAP 4
+// Kijk na of er nog een leeg vakje naast een tentje zou staan.
+// Indien ja, vul deze met gras op.
+
 
  Matplot(B)
-     return
-    disp('test')
+     return // Hier stopt de functie
+    
 
   
      // linkerbovenhoek
