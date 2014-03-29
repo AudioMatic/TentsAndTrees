@@ -56,7 +56,11 @@ function B = solveTentjeBoompje(A,R,K)
         end
     end
     
-   
+   // placeTentjes(A,R,K,B)
+    Matplot(B)
+endfunction
+
+function placeTentjes(A,R,K,B)
  // TENTJES ZETTEN 
  
  [rB,kB] = size(B) 
