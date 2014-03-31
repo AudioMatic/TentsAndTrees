@@ -57,7 +57,7 @@ function B = solveTentjeBoompje(A,R,K)
     end
     //That works ! ;) 
    placeTentjes(A,R,K,B)
-   //Matplot(B)
+ //  Matplot(B)
 endfunction
 
 function placeTentjes(A,R,K,B)
@@ -115,9 +115,8 @@ function placeTentjes(A,R,K,B)
          end
      end
        
-   //Matplot(B)
-     //return
-    //disp('test')
+     // Matplot(B)
+ plaatsGrasRondTentjes(A,R,K,B)
 endfunction
 
 function plaatsGrasRondTentjes(A,R,K,B)
@@ -137,9 +136,11 @@ function plaatsGrasRondTentjes(A,R,K,B)
          end
      end
      
-    Matplot(B)
-    // return
-   // disp('test')
+   // Matplot(B)
+    
+   checkLeegRondBoom(A,R,K,B)
+endfunction
+function checkLeegRondBoom(A,R,K,B)
 
 // STAP 4 
 // Ga na of er nog lege vakjes zijn rond een boom (en dat er rond die boom nog geen tentjes staan)

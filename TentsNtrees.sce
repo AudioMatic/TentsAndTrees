@@ -57,7 +57,7 @@ function B = solveTentjeBoompje(A,R,K)
     end
     //That works ! ;) 
    placeTentjes(A,R,K,B)
-   //Matplot(B)
+ //  Matplot(B)
 endfunction
 
 function placeTentjes(A,R,K,B)
@@ -115,8 +115,8 @@ function placeTentjes(A,R,K,B)
          end
      end
        
-     // Matplot(B)
- plaatsGrasRondTentjes(A,R,K,B)
+      Matplot(B)
+ //plaatsGrasRondTentjes(A,R,K,B)
 endfunction
 
 function plaatsGrasRondTentjes(A,R,K,B)
@@ -213,6 +213,7 @@ B2 = [t b g g t;
       g g g g b; 
       g g b t g]
 // Voorbeeld 3
+// (werkt bijna, tentjes zet hij wel al juist)
 A3 = [x x b x x; 
       b x x b x; 
       x x x x x; 
@@ -233,7 +234,15 @@ B3 = [g t b g g;
 //      g g t g b; 
 //      g g g g t; 
 //      g g t b g]
- 
+
+
+// Voorbeeld 4
+// (werkt bijna, tentjes zet hij wel al juist)
+A4 = [x x x b x; 
+      x t x x x; 
+      x b x x x; 
+      x b b b x; 
+      x x x x x]
 K4 = [1 1 1 0 2] 
 R4 = [1 1 0 2 1]        
 B4 = [g g g b t; 
@@ -241,7 +250,13 @@ B4 = [g g g b t;
       g b g g g; 
       t b b b t; 
       g g t g g]
-
+// Voorbeeld 5
+// (werkt niet)
+A5 = [x b x b x; 
+      b x x x x; 
+      x x x b x; 
+      b x x x x; 
+      x x x x x]
 K5 = [2 0 1 1 1] 
 R5 = [2 0 1 1 1]   
 B5 = [g b t b t; 
@@ -266,4 +281,4 @@ B7 = [g g g b t;
       t b g g b; 
       g g g g t]     
       
-solveTentjeBoompje(A3,R3,K3)
+solveTentjeBoompje(A5,R5,K5)
