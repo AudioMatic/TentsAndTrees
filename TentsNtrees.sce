@@ -264,7 +264,13 @@ B5 = [g b t b t;
       t g g b g; 
       b g g t g; 
       t g g g g]
- 
+// Voorbeeld 6
+// (werkt niet)
+A6 = [x x x x b; 
+      x x b x x; 
+      x x b x x; 
+      x x x x x; 
+      x b x b x]
 K6 = [1 1 1 1 1]  
 R6 = [1 1 0 1 2]       
 B6 = [g g g t b; 
@@ -272,7 +278,13 @@ B6 = [g g g t b;
       g g b g g; 
       g g t g g; 
       t b g b t]
-  
+// Voorbeeld 7
+// (werkt niet)
+A7 = [x x x b x; 
+      x b b x x; 
+      x x x x x; 
+      x b x x b; 
+      x x x x x] 
 K7 = [2 0 1 0 2]
 R7 = [1 1 1 1 1]        
 B7 = [g g g b t; 
@@ -281,4 +293,4 @@ B7 = [g g g b t;
       t b g g b; 
       g g g g t]     
       
-solveTentjeBoompje(A5,R5,K5)
+solveTentjeBoompje(A7,R7,K7)
