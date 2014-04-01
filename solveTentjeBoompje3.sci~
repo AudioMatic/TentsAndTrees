@@ -13,16 +13,6 @@ function B = solveTentjeBoompje(B,R,K)
                B = plaatsTentjesVolgensVector(B,R,K)
                B = checkLeegRondBoom(B,R,K) 
                B = plaatsGrasRondTentjes(B,R,K)
-             B = plaatsGrasOpVector0(B,R,K)
-               B = plaatsGrasWaarGeenBoom(B,R,K)
-             B = plaatsTentjesVolgensVector(B,R,K)
-               B = checkLeegRondBoom(B,R,K) 
-               B = plaatsGrasRondTentjes(B,R,K)
-               B = plaatsGrasOpVector0(B,R,K)
-               B = plaatsGrasWaarGeenBoom(B,R,K)
-             B = plaatsTentjesVolgensVector(B,R,K)
-               B = checkLeegRondBoom(B,R,K) 
-               B = plaatsGrasRondTentjes(B,R,K)
 //            end 
 //        end
 //    end
@@ -401,6 +391,7 @@ B10 = [g b t g t g g g;
       g g t g g g t b]
       
 
+solveTentjeBoompje(A20,R20,K20)
 function testSolveTB()
     
     sA1 = solveTentjeBoompje(A1,R1,K1)
@@ -475,5 +466,3 @@ function [Pjuist,Pfout] = percentageCorrIngevuld(V,sV)
     Pjuist = Pjuist / totaalVakken;
     Pfout = Pfout / totaalVakken;
 endfunction
-testSolveTB
-//solveTentjeBoompje(A1,R1,K1)
