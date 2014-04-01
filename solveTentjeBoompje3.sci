@@ -23,6 +23,11 @@ function B = solveTentjeBoompje(B,R,K)
              B = plaatsTentjesVolgensVector(B,R,K)
                B = checkLeegRondBoom(B,R,K) 
                B = plaatsGrasRondTentjes(B,R,K)
+//                B = plaatsGrasOpVector0(B,R,K)
+//               B = plaatsGrasWaarGeenBoom(B,R,K)
+//             B = plaatsTentjesVolgensVector(B,R,K)
+//               B = checkLeegRondBoom(B,R,K) 
+//               B = plaatsGrasRondTentjes(B,R,K)
 //            end 
 //        end
 //    end
@@ -225,7 +230,8 @@ B20 = [t b g g t;
       g g g g b; 
       g g b t g]
       
-// voorbeeld
+// voorbeeld 1
+// Werkt
 A1 = [x x x x b; 
       x b b x x; 
       x x x x b; 
@@ -239,7 +245,8 @@ B1 = [g g g g b;
       g g g g t; 
       g g t b g]
 
-
+// voorbeeld 2
+// Werkt
 A2 = [x x b x x; 
       b x x b x; 
       x x x x x; 
@@ -253,7 +260,8 @@ B2 = [g t b g g;
       b g g g t; 
       t g g g b]
 
-
+// voorbeeld 3
+// Werkt
 A3 = [x x x b x; 
       x x x x x; 
       x b x x x; 
@@ -266,7 +274,8 @@ B3 = [g g g b t;
       g b g g g; 
       t b b b t; 
       g g t g g]
-      
+// voorbeeld 4
+// Werkt
 A4 = [b x x x b x b x; 
       x x x x x x x b; 
       x x b x x x b x; 
@@ -475,5 +484,6 @@ function [Pjuist,Pfout] = percentageCorrIngevuld(V,sV)
     Pjuist = Pjuist / totaalVakken;
     Pfout = Pfout / totaalVakken;
 endfunction
-testSolveTB
-//solveTentjeBoompje(A1,R1,K1)
+//testSolveTB
+solveTentjeBoompje(A4,R4,K4)
+solveTentjeBoompje(A4,R4,K4)
