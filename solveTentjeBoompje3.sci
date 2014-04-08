@@ -1,3 +1,8 @@
+//TODO
+// Maak extra functie waarbij je gaat kijken hoeveel tentjes er in elke rij en kolom staan. Indien dit gelijk is aan de rij of kolomvector, dan kan je alle lege plaatsen vullen met gras.
+
+
+
 x = 7  // leeg vakje (geel) 
 g = 3  // gras (lichtgroen)
 b = 13 // boom (donkergroen)
@@ -15,24 +20,25 @@ function B = solveTentjeBoompje(B,R,K)
                B = checkLeegRondBoom(B,R,K) 
                B = plaatsGrasRondTentjes(B,R,K)
 //               
-             B = plaatsGrasOpVector0(B,R,K)
+//             B = plaatsGrasOpVector0(B,R,K)
                B = plaatsGrasWaarGeenBoom(B,R,K)
              B = plaatsTentjesVolgensVector(B,R,K)
-//              B = plaatsGrasRondTentjes(B,R,K)
-//               B = checkLeegRondBoom(B,R,K) 
-//               B = plaatsGrasRondTentjes(B,R,K)
+              B = plaatsGrasRondTentjes(B,R,K)
+               B = checkLeegRondBoom(B,R,K) 
+               B = plaatsGrasRondTentjes(B,R,K)
 //               
 //               B = plaatsGrasOpVector0(B,R,K)
-//               B = plaatsGrasWaarGeenBoom(B,R,K)
-//             B = plaatsTentjesVolgensVector(B,R,K)
-//              B = plaatsGrasRondTentjes(B,R,K)
-//               B = checkLeegRondBoom(B,R,K) 
-//               B = plaatsGrasRondTentjes(B,R,K)
+               B = plaatsGrasWaarGeenBoom(B,R,K)
+             B = plaatsTentjesVolgensVector(B,R,K)
+              B = plaatsGrasRondTentjes(B,R,K)
+               B = checkLeegRondBoom(B,R,K) 
+              B = plaatsGrasRondTentjes(B,R,K)
+//              
 //                B = plaatsGrasOpVector0(B,R,K)
-//               B = plaatsGrasWaarGeenBoom(B,R,K)
-//             B = plaatsTentjesVolgensVector(B,R,K)
-//               B = checkLeegRondBoom(B,R,K) 
-//               B = plaatsGrasRondTentjes(B,R,K)
+//              B = plaatsGrasWaarGeenBoom(B,R,K)
+//            B = plaatsTentjesVolgensVector(B,R,K)
+//              B = checkLeegRondBoom(B,R,K) 
+//              B = plaatsGrasRondTentjes(B,R,K)
 //            end 
 //        end
 //    end
@@ -94,7 +100,7 @@ function B = plaatsTentjesVolgensVector(B,R,K)
      // kijken naar vector kolom hoeveel vakjes er tentjes moeten zijn
  
      [rB,kB] = size(B) 
-     AantalLegeVakjes = [ ]
+     aantalLegeVakjes = [0]
 
      for(i=1:kB)
          aantalLegeVakjes(i) = 0
@@ -119,9 +125,10 @@ function B = plaatsTentjesVolgensVector(B,R,K)
      end
      
      
+     
      // kijken naar vector rij hoeveel vakjes er tentjes moeten zijn
      
-     aantalLegeVakjes = [ ]
+     aantalLegeVakjes = [0]
      for(i=1:rB)
          aantalLegeVakjes(i) = 0
          for(j=1:kB)
@@ -195,6 +202,16 @@ function B = plaatsGrasRondTentjes(B,R,K)
      end
      return
 endfunction
+
+function B = vergelijkAantalTentjesKolRijVec(B,R,K)
+    //Vergelijk het aantal tentjes + lege plaatsen met de kolom rij vector
+    // Indien die gelijk zijn, vul dat lege vakje in met een tentje
+    
+    
+    
+    
+endfunction
+
 //
 //function B = plaatsTentje2op3(B,R,K)
 //    
@@ -489,6 +506,6 @@ function [Pjuist,Pfout] = percentageCorrIngevuld(V,sV)
     Pjuist = Pjuist / totaalVakken;
     Pfout = Pfout / totaalVakken;
 endfunction
-testSolveTB
+//testSolveTB
 solveTentjeBoompje(A4,R4,K4)
 
