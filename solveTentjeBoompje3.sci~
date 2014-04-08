@@ -10,14 +10,14 @@ function B = solveTentjeBoompje(B,R,K)
 //            while B(i,j) == x
                B = plaatsGrasOpVector0(B,R,K)
                B = plaatsGrasWaarGeenBoom(B,R,K)
-               B = plaatsTentjesVolgensVector(B,R,K)
-               B = plaatsGrasRondTentjes(B,R,K)
-               B = checkLeegRondBoom(B,R,K) 
-               B = plaatsGrasRondTentjes(B,R,K)
+//               B = plaatsTentjesVolgensVector(B,R,K)
+//               B = plaatsGrasRondTentjes(B,R,K)
+//               B = checkLeegRondBoom(B,R,K) 
+//               B = plaatsGrasRondTentjes(B,R,K)
 //               
-             B = plaatsGrasOpVector0(B,R,K)
-               B = plaatsGrasWaarGeenBoom(B,R,K)
-             B = plaatsTentjesVolgensVector(B,R,K)
+//             B = plaatsGrasOpVector0(B,R,K)
+//               B = plaatsGrasWaarGeenBoom(B,R,K)
+//             B = plaatsTentjesVolgensVector(B,R,K)
 //              B = plaatsGrasRondTentjes(B,R,K)
 //               B = checkLeegRondBoom(B,R,K) 
 //               B = plaatsGrasRondTentjes(B,R,K)
@@ -102,7 +102,7 @@ function B = plaatsTentjesVolgensVector(B,R,K)
              if B(j,i) == x then
                  aantalLegeVakjes(i) = aantalLegeVakjes(i) + 1
              end
-             if B(j,i) == t then
+             if B(i,j) == t then
                aantalLegeVakjes(i) = aantalLegeVakjes(i) + 1
              end
          end
