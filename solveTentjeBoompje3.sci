@@ -9,7 +9,7 @@ b = 13 // boom (donkergroen)
 t = 6 // tent (paars)
 
 function B = solveTentjeBoompje(B,R,K)
-        
+       
 //  for i = 1 : length(R)
 //        for j = 1 : length(K)
 //            while B(i,j) == x
@@ -21,14 +21,14 @@ function B = solveTentjeBoompje(B,R,K)
                B = plaatsGrasRondTentjes(B,R,K)
 //               
 //             B = plaatsGrasOpVector0(B,R,K)
-               B = plaatsGrasWaarGeenBoom(B,R,K)
+//               B = plaatsGrasWaarGeenBoom(B,R,K)
              B = plaatsTentjesVolgensVector(B,R,K)
               B = plaatsGrasRondTentjes(B,R,K)
                B = checkLeegRondBoom(B,R,K) 
                B = plaatsGrasRondTentjes(B,R,K)
 //               
 //               B = plaatsGrasOpVector0(B,R,K)
-               B = plaatsGrasWaarGeenBoom(B,R,K)
+//               B = plaatsGrasWaarGeenBoom(B,R,K)
              B = plaatsTentjesVolgensVector(B,R,K)
               B = plaatsGrasRondTentjes(B,R,K)
                B = checkLeegRondBoom(B,R,K) 
@@ -36,12 +36,16 @@ function B = solveTentjeBoompje(B,R,K)
 //              
 //                B = plaatsGrasOpVector0(B,R,K)
 //              B = plaatsGrasWaarGeenBoom(B,R,K)
-//            B = plaatsTentjesVolgensVector(B,R,K)
-//              B = checkLeegRondBoom(B,R,K) 
-//              B = plaatsGrasRondTentjes(B,R,K)
+           B = plaatsTentjesVolgensVector(B,R,K)
+              B = checkLeegRondBoom(B,R,K) 
+              B = plaatsGrasRondTentjes(B,R,K)
+              
+              
 //            end 
 //        end
 //    end
+
+ 
    Matplot(B) 
    return B
    
@@ -101,15 +105,18 @@ function B = plaatsTentjesVolgensVector(B,R,K)
  
      [rB,kB] = size(B) 
      aantalLegeVakjes = [0]
+     aantalTentjes = [ ] 
 
      for(i=1:kB)
          aantalLegeVakjes(i) = 0
+         aantalTentjes(i) = 0
          for(j=1:rB)
              if B(j,i) == x then
                  aantalLegeVakjes(i) = aantalLegeVakjes(i) + 1
              end
              if B(j,i) == t then
                aantalLegeVakjes(i) = aantalLegeVakjes(i) + 1
+               aantalTentjes(i) = aantalTentjes(i) + 1
              end
          end
         end
@@ -124,19 +131,33 @@ function B = plaatsTentjesVolgensVector(B,R,K)
          end
      end
      
+         // Als het aantal tentjes gelijk is aan K(i), dan vullen we de lege vakjes met gras
+        for(i=1:kB)
+         if aantalTentjes(i) == K(i) then
+             for(j=1:rB)
+                 if B(j,i) ==x then
+                     B(j,i) = g
+                 end
+             end
+         end
+     end
+     
      
      
      // kijken naar vector rij hoeveel vakjes er tentjes moeten zijn
      
      aantalLegeVakjes = [0]
+     aantalTentjes = [0]
      for(i=1:rB)
          aantalLegeVakjes(i) = 0
+         aantalTentjes(i) = 0
          for(j=1:kB)
              if B(i,j) == x then
                  aantalLegeVakjes(i) = aantalLegeVakjes(i) + 1
              end
              if B(i,j) == t then
                aantalLegeVakjes(i) = aantalLegeVakjes(i) + 1
+               aantalTentjes(i) = aantalTentjes(i) + 1
              end
          end
         end
@@ -146,6 +167,18 @@ function B = plaatsTentjesVolgensVector(B,R,K)
              for(j=1:kB)
                  if B(i,j) ==x then
                      B(i,j) = t
+                 end
+             end
+         end
+     end
+     
+     
+     // Als het aantal tentjes gelijk is aan R(i), dan vullen we de lege vakjes met gras
+      for(i=1:rB)
+         if aantalTentjes(i) == R(i) then
+             for(j=1:kB)
+                 if B(i,j) ==x then
+                     B(i,j) = g
                  end
              end
          end
@@ -506,6 +539,9 @@ function [Pjuist,Pfout] = percentageCorrIngevuld(V,sV)
     Pjuist = Pjuist / totaalVakken;
     Pfout = Pfout / totaalVakken;
 endfunction
-//testSolveTB
-solveTentjeBoompje(A4,R4,K4)
-
+ // start counter
+        tic       
+//solveTentjeBoompje(A7,R7,K7)
+testSolveTB
+ // stop timer
+  toc
