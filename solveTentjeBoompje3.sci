@@ -19,34 +19,43 @@ function B = solveTentjeBoompje(B,R,K)
                B = plaatsGrasRondTentjes(B,R,K)
                B = checkLeegRondBoom(B,R,K) 
                B = plaatsGrasRondTentjes(B,R,K)
-//               
+               B = plaatsGrasRondBoom(B,R,K)
+               
 //             B = plaatsGrasOpVector0(B,R,K)
 //               B = plaatsGrasWaarGeenBoom(B,R,K)
              B = plaatsTentjesVolgensVector(B,R,K)
               B = plaatsGrasRondTentjes(B,R,K)
                B = checkLeegRondBoom(B,R,K) 
                B = plaatsGrasRondTentjes(B,R,K)
-//               
+               B = plaatsGrasRondBoom(B,R,K)
+               
 //               B = plaatsGrasOpVector0(B,R,K)
 //               B = plaatsGrasWaarGeenBoom(B,R,K)
              B = plaatsTentjesVolgensVector(B,R,K)
               B = plaatsGrasRondTentjes(B,R,K)
                B = checkLeegRondBoom(B,R,K) 
               B = plaatsGrasRondTentjes(B,R,K)
-//              
+              B = plaatsGrasRondBoom(B,R,K)
+              
 //                B = plaatsGrasOpVector0(B,R,K)
 //              B = plaatsGrasWaarGeenBoom(B,R,K)
            B = plaatsTentjesVolgensVector(B,R,K)
               B = checkLeegRondBoom(B,R,K) 
               B = plaatsGrasRondTentjes(B,R,K)
+              B = plaatsGrasRondBoom(B,R,K)
               
-              
+                B = plaatsTentjesVolgensVector(B,R,K)
+                B = checkLeegRondBoom(B,R,K)
+                B = plaatsGrasRondBoom(B,R,K)
 //            end 
 //        end
 //    end
 
  
-   Matplot(B) 
+   Matplot(B)
+  Rom  = R($:-1:1)
+   xlabel(string(K))
+   ylabel(string(Rom)) 
    return B
    
 endfunction
@@ -186,7 +195,7 @@ function B = plaatsTentjesVolgensVector(B,R,K)
      return
 endfunction
 
-function B = checkLeegRondBoom(B,R,K)
+function B = checkLeegRondBoom2(B,R,K)
 
 // Ga na of er nog lege vakjes zijn rond een boom (en dat er rond die boom nog geen tentjes staan)
 // Als er nog maar één leeg vakje is, zet je daar een tentje
@@ -214,6 +223,100 @@ function B = checkLeegRondBoom(B,R,K)
                 end
             end
         end
+     end
+     return
+endfunction
+
+function B = checkLeegRondBoom(B,R,K)
+
+// Ga na of er nog lege vakjes zijn rond een boom (en dat er rond die boom nog geen tentjes staan)
+// Als er nog maar één leeg vakje is, zet je daar een tentje
+    aantalLeeg = 0
+    oke = %F
+     for i=1:length(R)
+         for j=1:length(K)
+             if B(i,j)==b then
+                 aantalLeeg = 0 // reset aantalLeeg
+                 // Enkel vakjes die boven,onder L of R van een boom liggen gaan controleren.
+                 for k=max(i-1,1):min(i+1,length(R))
+                     if B(k,j)==x then aantalLeeg = aantalLeeg+1
+                     end
+                     if B(k,j)==t then oke=%T
+                     end
+                 end
+                 for l=max(j-1,1):min(j+1,length(K))            
+                     if B(i,l)==x then aantalLeeg = aantalLeeg + 1
+                     end
+                     if B(i,l)==t then oke=%T
+                     end
+                 end
+                 if aantalLeeg==1 & oke==%F then
+                     for k=max(i-1,1):min(i+1,length(R))
+                         if B(k,j)==x then B(k,j)=t
+                         end
+                     end
+                     for l=max(j-1,1):min(j+1,length(K))
+                         if B(i,l)==x then B(i,l)=t
+                         end
+                    end
+                end
+            end
+        end
+     end
+     return
+endfunction
+
+function B = plaatsGrasRondBoom(B,R,K)  // Werkt nog niet goed!!!!
+
+// Als er al een tentje bij een boom staat en we zijn zeker dat het niet bij een andere boom kan horen, dan kunnen we de lege
+// plaatsen vullen met gras.
+    oke = %F
+     for i=1:length(R)
+         for j=1:length(K)
+             if B(i,j)==b then
+                 // Enkel vakjes die boven,onder L of R van een boom liggen gaan controleren.
+                 for k=max(i-1,1):min(i+1,length(R))
+                     if B(k,j)==t then 
+                         oke=%T
+                         //Controleer dat er geen andere boom bij dit tentje staat
+                         for m=max(k-1,1):min(k+1,length(R)) 
+                             if m<>i  // anders komen we nog dezelfde boom nog tegen
+                              for n=max(j-1,1):min(j+1,length(K)) 
+                                  if n<>j
+                                    if B(m,n)==b then oke=%F
+                                    end
+                                 end
+                             end
+                            end
+                         end
+                     end
+                 end
+                 for l=max(j-1,1):min(j+1,length(K))            
+                     if B(i,l)==t then 
+                         oke=%T
+                         //Controleer dat er geen andere boom bij dit tentje staat
+                         for m=max(i-1,1):min(i+1,length(R)) 
+                             if m <> i 
+                                for n=max(l-1,1):min(l+1,length(K)) 
+                                    if n <> j
+                                        if B(m,n)==b then oke=%F
+                                        end
+                                    end
+                                 end
+                             end
+                         end
+                     end
+                 end
+                 if oke==%T then
+                     for k=max(i-1,1):min(i+1,length(R))
+                         for l=max(j-1,1):min(j+1,length(K))
+                            if B(k,l)==x then B(k,l)=g
+                            end
+                        end
+                    end
+                 end
+            end
+         end
      end
      return
 endfunction
@@ -541,7 +644,7 @@ function [Pjuist,Pfout] = percentageCorrIngevuld(V,sV)
 endfunction
  // start counter
         tic       
-//solveTentjeBoompje(A7,R7,K7)
+//solveTentjeBoompje(A9,R9,K9)
 testSolveTB
  // stop timer
   toc
