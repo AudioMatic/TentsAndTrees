@@ -19,12 +19,14 @@ function B = solveTentjeBoompje(B,R,K)
                B = plaatsGrasRondTentjes(B,R,K)
                 B = plaatsTentje2op3(B,R,K)
 //               B = plaatsGrasRondBoom(B,R,K)
+              
 //               
 
              B = plaatsTentjesVolgensVector(B,R,K)
               B = plaatsGrasRondTentjes(B,R,K)
                B = checkLeegRondBoom(B,R,K) 
                B = plaatsGrasRondTentjes(B,R,K)
+              
 ////               B = plaatsGrasRondBoom(B,R,K)
 //               
 
@@ -42,7 +44,10 @@ function B = solveTentjeBoompje(B,R,K)
 //              
                 B = plaatsTentjesVolgensVector(B,R,K)
                 B = checkLeegRondBoom(B,R,K)
-//                B = plaatsGrasRondBoom(B,R,K)
+                B = plaatsGrasRondTentjes(B,R,K)
+                B = plaatsGrasRondBoom(B,R,K)
+                  B = vergelijkAantalTentjesKolRijVec(B,R,K)
+            
 //            end 
 //        end
 //    end
@@ -90,6 +95,12 @@ function B = plaatsGrasOpVector0(B,R,K)
     end
     return
 endfunction
+
+//function B = plaatsGrasOpVector02(B,R,K) //check of dat in de Rij of kolomvector een 0 staat.
+//     B(find(R==0),:)=g 
+//     B(:,find(K==0))=g 
+//     return 
+//endfunction
     
 function B = plaatsGrasWaarGeenBoom(B,R,K)
     // Kijk of er in de buurt een boom staat
@@ -307,12 +318,38 @@ function B = vergelijkAantalTentjesKolRijVec(B,R,K)
     //Vergelijk het aantal tentjes + lege plaatsen met de kolom rij vector
     // Indien die gelijk zijn, vul dat lege vakje in met een tentje
     
+    teZettenTentjesKol = 0
+    
+     for(i=1:length(K))
+         aantalLegeVakjes(i) = 0
+         aantalTentjes(i) = 0
+         teZettenTentjesKol = K(i)
+         
+         //ga rij af
+         for(j=1:length(R) -1)
+             if B(j,i) == x & teZettenTentjesKol <> 0 then
+                 B(j,i) = t
+                 teZettenTentjesKol = teZettenTentjesKol -1
+                 if B(j+1,i) <> b then
+                      B(j+1,i) = g
+                 end
+                
+                 
+             end
+             if B(j,i) == t then
+               aantalLegeVakjes(i) = aantalLegeVakjes(i) + 1
+               aantalTentjes(i) = aantalTentjes(i) + 1
+             end
+         end
+        end
     
     
     
+    
+return
 endfunction
 
-//
+
 function B = plaatsTentje2op3(B,R,K)
      //Plaats tentje waar er sowieso tentje moet in een geval van 2 op 3.
      [rB,kB] = size(B)   
@@ -327,7 +364,7 @@ function B = plaatsTentje2op3(B,R,K)
          end
         
         
-         if aantalLegeVakjes(i) == 2 then
+         if aantalLegeVakjes(i) <= 2 then
                  if B(i,j) ==x then
                      B(i,j) = t
                  end
@@ -609,7 +646,7 @@ function [Pjuist,Pfout] = percentageCorrIngevuld(V,sV)
 endfunction
  // start counter
         tic       
-solveTentjeBoompje(A8,R8,K8)
-//testSolveTB
+//solveTentjeBoompje(A9,R9,K9)
+testSolveTB
  // stop timer
   toc
