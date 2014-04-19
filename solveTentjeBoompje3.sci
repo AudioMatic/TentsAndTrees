@@ -17,7 +17,9 @@ function B = solveTentjeBoompje(B,R,K)
                B = plaatsGrasRondTentjes(B,R,K)
                B = checkLeegRondBoom(B,R,K) 
                B = plaatsGrasRondTentjes(B,R,K)
-////               B = plaatsGrasRondBoom(B,R,K)
+               B = plaatsGrasRondBoom(B,R,K)
+//               B = vergelijkAantalTentjesKolRijVec(B,R,K)
+            
 //               
 
              B = plaatsTentjesVolgensVector(B,R,K)
@@ -109,7 +111,7 @@ function B = plaatsTentjesVolgensVector(B,R,K)
  
      [rB,kB] = size(B) 
      aantalLegeVakjes = [0]
-     aantalTentjes = [ ] 
+     aantalTentjes = [0] 
 
      for(i=1:kB)
          aantalLegeVakjes(i) = 0
@@ -305,6 +307,13 @@ endfunction
 function B = vergelijkAantalTentjesKolRijVec(B,R,K)
     //Vergelijk het aantal tentjes + lege plaatsen met de kolom rij vector
     // Indien die gelijk zijn, vul dat lege vakje in met een tentje
+    //verplaats ook tentjes die fout geplaatst zijn naar een ander leeg vakje
+    aantalKolTent = 0 //teller voor resterend te plaatsen tentjes
+    aantalRijTent = 0 //teller voor resterend te plaatsen tentjes
+   
+    
+      
+        
     
     
     
@@ -607,7 +616,7 @@ function [Pjuist,Pfout] = percentageCorrIngevuld(V,sV)
 endfunction
  // start counter
         tic       
-//solveTentjeBoompje(A9,R9,K9)
+//solveTentjeBoompje(A8,R8,K8)
 testSolveTB
  // stop timer
   toc
