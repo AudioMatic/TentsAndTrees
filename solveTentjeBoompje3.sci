@@ -17,7 +17,8 @@ function B = solveTentjeBoompje(B,R,K)
                B = plaatsGrasRondTentjes(B,R,K)
                B = checkLeegRondBoom(B,R,K) 
                B = plaatsGrasRondTentjes(B,R,K)
-////               B = plaatsGrasRondBoom(B,R,K)
+                B = plaatsTentje2op3(B,R,K)
+//               B = plaatsGrasRondBoom(B,R,K)
 //               
 
              B = plaatsTentjesVolgensVector(B,R,K)
@@ -312,28 +313,29 @@ function B = vergelijkAantalTentjesKolRijVec(B,R,K)
 endfunction
 
 //
-//function B = plaatsTentje2op3(B,R,K)
-//    
-//       //Plaats tentje waar er sowieso tentje moet in een geval van 2 op 3.
-//  aantalLegeVakjes = [ ]
-//     for(i=1:rB)
-//         aantalLegeVakjes(i) = 0
-//         for(j=1:kB)
-//             if B(i,j) == x then
-//                 aantalLegeVakjes(i) = aantalLegeVakjes(i) + 1
-//             end
-//         end
-//        end
-//        
-//         if aantalLegeVakjes(i) == 3 then
-//                 if B(i,j) ==x then
-//                     B(i,j) = t
-//                 end
-//             end
-//         end
-//     end
-//     return
-//endfunction
+function B = plaatsTentje2op3(B,R,K)
+     //Plaats tentje waar er sowieso tentje moet in een geval van 2 op 3.
+     [rB,kB] = size(B)   
+  aantalLegeVakjes = [ ]
+  
+     for(i=1:rB)
+         aantalLegeVakjes(i) = 0
+         for(j=1:kB)
+             if B(i,j) == x then
+                 aantalLegeVakjes(i) = aantalLegeVakjes(i) + 1
+             end
+         end
+        
+        
+         if aantalLegeVakjes(i) == 2 then
+                 if B(i,j) ==x then
+                     B(i,j) = t
+                 end
+             end
+         end
+     
+     return
+endfunction
 
 // eigen voorbeeldje
 
@@ -607,7 +609,7 @@ function [Pjuist,Pfout] = percentageCorrIngevuld(V,sV)
 endfunction
  // start counter
         tic       
-//solveTentjeBoompje(A9,R9,K9)
-testSolveTB
+solveTentjeBoompje(A8,R8,K8)
+//testSolveTB
  // stop timer
   toc
