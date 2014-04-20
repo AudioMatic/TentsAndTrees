@@ -15,26 +15,29 @@ function B = solveTentjeBoompje(B,R,K)
                B = plaatsGrasWaarGeenBoom(B,R,K)
                B = plaatsTentjesVolgensVector(B,R,K)
                B = plaatsGrasRondTentjes(B,R,K)
-               B = checkLeegRondBoom(B,R,K) 
+//               B = checkLeegRondBoom(B,R,K) 
                B = plaatsGrasRondTentjes(B,R,K)
                 B = plaatsTentje2op3(B,R,K)
+                 
 //               B = plaatsGrasRondBoom(B,R,K)
               
 //               
 
              B = plaatsTentjesVolgensVector(B,R,K)
               B = plaatsGrasRondTentjes(B,R,K)
-               B = checkLeegRondBoom(B,R,K) 
+//               B = checkLeegRondBoom(B,R,K) 
                B = plaatsGrasRondTentjes(B,R,K)
               
-////               B = plaatsGrasRondBoom(B,R,K)
+              
+//               B = plaatsGrasRondBoom(B,R,K)
 //               
 
              B = plaatsTentjesVolgensVector(B,R,K)
               B = plaatsGrasRondTentjes(B,R,K)
                B = checkLeegRondBoom(B,R,K) 
               B = plaatsGrasRondTentjes(B,R,K)
-////              B = plaatsGrasRondBoom(B,R,K)
+          
+//              B = plaatsGrasRondBoom(B,R,K)
 //              
 
            B = plaatsTentjesVolgensVector(B,R,K)
@@ -42,11 +45,14 @@ function B = solveTentjeBoompje(B,R,K)
               B = plaatsGrasRondTentjes(B,R,K)
 //              B = plaatsGrasRondBoom(B,R,K)
 //              
-                B = plaatsTentjesVolgensVector(B,R,K)
+//                B = plaatsTentjesVolgensVector(B,R,K)
                 B = checkLeegRondBoom(B,R,K)
                 B = plaatsGrasRondTentjes(B,R,K)
                 B = plaatsGrasRondBoom(B,R,K)
-                  B = vergelijkAantalTentjesKolRijVec(B,R,K)
+//                  B = vergelijkAantalTentjesKolRijVec(B,R,K)
+                     B = vergelijkAantalTentjesKolRijVec(B,R,K)
+                      B =plaatsGras(B,R,K)
+                                    
             
 //            end 
 //        end
@@ -330,15 +336,32 @@ function B = vergelijkAantalTentjesKolRijVec(B,R,K)
              if B(j,i) == x & teZettenTentjesKol <> 0 then
                  B(j,i) = t
                  teZettenTentjesKol = teZettenTentjesKol -1
-                 if B(j+1,i) <> b then
+                 if B(j+1,i) <> b | B(j+1,i)== t then
                       B(j+1,i) = g
                  end
                 
                  
              end
-             if B(j,i) == t then
-               aantalLegeVakjes(i) = aantalLegeVakjes(i) + 1
-               aantalTentjes(i) = aantalTentjes(i) + 1
+         end
+        end
+        
+         teZettenTentjesRij = 0
+    
+     for(i=1:length(R)-1)
+         aantalLegeVakjes(i) = 0
+         aantalTentjes(i) = 0
+         teZettenTentjesRij = R(i)
+         
+         //ga kol af
+         for(j=1:length(K))
+             if B(i,j) == x & teZettenTentjesRij <> 0 then
+                 B(i,j) = t
+                 teZettenTentjesRij = teZettenTentjesRij -1
+                 if B(i+1,j) <> b |B(i+1,j) == t then
+                      B(i+1,j) = g
+                 end
+                
+                 
              end
          end
         end
@@ -370,8 +393,22 @@ function B = plaatsTentje2op3(B,R,K)
                  end
              end
          end
+         
+        
      
      return
+endfunction
+
+function B =plaatsGras(B,R,K)
+    
+    for(i=1:length(K))
+         for(j=1:length(R) -1)
+             if B(j,i) == x then
+                 B(j,i) = g
+             end
+         end
+        end
+    
 endfunction
 
 // eigen voorbeeldje
