@@ -14,6 +14,7 @@ function B = solveTentjeBoompje(B,R,K)
                B = plaatsGrasOpVector0(B,R,K)
                B = plaatsGrasWaarGeenBoom(B,R,K)
                B = plaatsTentjesVolgensVector(B,R,K)
+
 //               B = checkLeegRondBoom(B,R,K) 
                B = plaatsGrasRondTentjes(B,R,K)
                     B = plaatsTentje2op3(B,R,K)
@@ -38,6 +39,7 @@ function B = solveTentjeBoompje(B,R,K)
           
 //              B = plaatsGrasRondBoom(B,R,K)
 //              
+
            B = plaatsTentjesVolgensVector(B,R,K)
               B = checkLeegRondBoom(B,R,K) 
               B = plaatsGrasRondTentjes(B,R,K)
@@ -46,7 +48,7 @@ function B = solveTentjeBoompje(B,R,K)
 //                B = plaatsTentjesVolgensVector(B,R,K)
 //                B = checkLeegRondBoom(B,R,K)
 //                B = plaatsGrasRondTentjes(B,R,K)
-                B = plaatsGrasRondBoom(B,R,K)
+//                B = plaatsGrasRondBoom(B,R,K)
                   B = vergelijkAantalTentjesKolRijVec(B,R,K)
 //                     B = vergelijkAantalTentjesKolRijVec(B,R,K)
                      
