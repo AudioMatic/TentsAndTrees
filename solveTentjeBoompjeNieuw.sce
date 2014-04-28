@@ -3,32 +3,83 @@ g = 3  // gras (lichtgroen)
 b = 13 // boom (donkergroen)
 t = 6 // tent (paars)
 
-B = [x,x,x,x,x,x,x,x;
-     x,x,x,x,x,b,x,x;
-     b,x,x,x,b,x,b,b;
-     b,x,x,x,x,x,x,x;
-     x,x,x,x,b,x,x,b;
-     x,x,x,x,b,x,b,x;
-     b,x,b,x,x,x,x,x;
-     x,x,x,x,x,x,x,x;]
-R = [1,1,3,1,2,0,2,2]
-K = [2,1,1,2,1,2,1,2]
+      
+A11 = [x x b x x x x x x x x x x x x x b x x x x x b x x; 
+       x b x x x b b b x x b x x b x b x x x x x x x x x;       
+       x x b x x x x b b x x x x x x x b x x b x x x x b; 
+       x x x b x x x x x x b x b x x x x x x x b x x x x;       
+       x x b x x b x x x x b x x x x b x x b b x x b x x;      
+       x x x x x x b x x x x x x b b x x b x x x x x x x;        
+       b x x x b x x x x b b x b x x x x x b x x x x x b;
+       x x x x x x x x x x x x x x x b x x x x x x x x x;      
+       x b b x b x x x x x b x x x x x x x x x x x b x x;
+       x x x x x x x x b b x x x x x x b x b x x x b x x;       
+       x b x b x x x x x x x x b x b x x x x x x x b x x;
+       x b x x b x x x x x x b x x x b b x b x x x x x x; 
+       x x x x x x b x x b x x x b x x x b x b b x x x b;
+       x x x x x x x x x x b x x x x x x x x x x x x x x; 
+       x x x b x b x x x x x x b x x x x b x x x x b x x;
+       x x b x x x x x x x b x x b x x x x b x x x x x x;            
+       x x b x x x x x x x x x x x x x x x x x x x b x x; 
+       x b x x x b b b x x x x x x x b x x x x x x b x x
+       x x b x x x x b b x x x x x x x b x x b x x x x x; 
+       x x x b x x x x x x b x b x x x b x x x b x x x b;      
+       x x x x x x x x x x x x x x x x x x x x x x b x b;
+       b x x b x x b b x b b b b x x b x b b x b x x x x;
+       x b x x x b x x x x x x x b x x x x x x x x b x x;
+       x b x x x x x x x b x x x x x x b x x x b x x x x;
+       x x b x x x b x x x b x x x x x x b x x x x x x b;]
+K11 = [6 4 6 3 8 1 9 3 4 7 4 7 4 5 3 7 1 10 2 9 2 5 0 12 1]
+R11 = [6 5 5 6 5 5 6 2 4 5 6 4 6 3 2 7 2 7 5 5 7 0 9 2 9]   
 
-function [M,A,T] = solveTentjeBoompje(B,R,K)
+A3 = [x x b x x; 
+      b x x b x; 
+      x x x x x; 
+      b x x x x; 
+      x x x x b]
+K3 = [2 1 0 0 2]
+R3 = [1 1 1 1 1]         
+B3 = [g t b g g; 
+      b g g b t; 
+      t g g g g; 
+      b g g g t; 
+      t g g g b]
+      
+A9 = [x x x x x b x x; 
+      x x b x b x b x; 
+      x x b b x x x x; 
+      x x x x x b x x; 
+      x x x x x x x x;
+      x b x x x x x x;
+      x x b x x x b x;
+      x x b x b x x x]
+K9 = [1 2 1 1 2 2 2 1]
+R9 = [2 1 2 1 1 1 2 2]  
+B2 = [x,x,x,b,x,b,x,x;
+     x,x,x,x,x,x,b,x;
+     b,x,x,x,x,x,x,x;
+     x,b,x,x,x,x,x,x;
+     x,x,x,x,b,x,b,x;
+     b,x,x,x,b,x,x,x;
+     x,x,x,x,b,x,b,x;
+     x,b,x,x,x,x,x,x;]
+     
+R2 = [2,1,1,2,2,1,2,1]
+K2 = [2,1,2,1,1,1,3,1]
+
+function X = solveTentjeBoompje(B,R,K)
     T = zeros(B) 
     A = geefBoompjes(B)
     M = berekenMogelijkheden(B,R,K)
     M = mogelijkhedenVolgensVec(T,M,R,K)    
-    [M,T] = tentjesVolgensVector(T,M,R,K)
-    M = geenMogelijkheidRondTent(T,M,R,K)
-    [M,T] = eenKansRondBoom(T,A,M,R,K)
-    
-    M = mogelijkhedenVolgensVec(T,M,R,K)    
-    [M,T] = tentjesVolgensVector(T,M,R,K)
-    M = geenMogelijkheidRondTent(T,M,R,K)
-    [M,T] = eenKansRondBoom(T,A,M,R,K)
+    [M,T] = losOp(T,M,A,R,K)
 
-    return
+    X = zeros(B)
+    X(find(T==1))=t
+    X(find(A==1))=b
+    X(find(X==0))=g
+   
+return X
 endfunction
 
 function G = berekenMogelijkheden(B,R,K)
@@ -113,51 +164,54 @@ return
 endfunction
 
 function M = geenMogelijkheidRondTent (T,M,R,K)
-    // geen mogelijkheid rond tent
-    A = find(T==1)
-  
-    // kijken naar plaatsje deronder en als 
-    // het tentje op de laatste plaats staat is 
-    // het volgende volgende kolom dus mogelijkheid verwijderen
-    // van vektor A  
-    A1 = A + 1
-    A1 = A1(find(modulo(A1,length(R))<>1)) 
-    
-    // kijken naar plaatsje erboven 
-    A2 = A - 1
-    A2 = A2(find(modulo(A2,length(R))<>0)) 
-    
-    // kijken naar plaatse rechts
-    // alles wat een hogere index heeft dan er eigenlijk
-    // kan zijn, (rechts van het veld),
-    // verwijderen als mogelijkheid van vektor A
-    A3 = A + length(R)
-    A3 = A3(find(A3 <= length(R) * length(K))) 
-    
-    A4 = A + length(R) - 1
-    //modulo voor als hij een kolom verder springt
-    A4 = A4(find(A4 <= length(R) * length(K)&modulo(A4,length(R))<>0)) 
-    
-    A5 = A + length(R) + 1
-    A5 = A5(find(A5 <= length(R) * length(K)&modulo(A5,length(R))<>1)) 
-    
-    // kijken naar plaatsen links
-    // alles wat een lagere index heeft dan er eigenlijk
-    // kan zijn, (links van het veld),
-    // verwijderen als mogelijkheid van vektor A
-    A6 = A - length(R)
-    A6 = A6(find(A6 > 0))
-    
-    A7 = A - length(R) - 1
-    A7 = A7(find(A7 > 0&modulo(A7,length(R))<>0)) 
-    
-    A8 = A - length(R) + 1
-    A8 = A8(find(A8 > 0&modulo(A8,length(R))<>1)) 
-    
-    Atotaal = unique([A1,A2,A3,A4,A5,A6,A7,A8])
-    
-    M(Atotaal) = 0
-return M   
+ 
+    if sum(T) > 0 then
+            // geen mogelijkheid rond tent
+            A = find(T==1)
+          
+            // kijken naar plaatsje deronder en als 
+            // het tentje op de laatste plaats staat is 
+            // het volgende volgende kolom dus mogelijkheid verwijderen
+            // van vektor A  
+            A1 = A + 1
+            A1 = A1(find(A1 <= length(R) * length(K)&modulo(A1,length(R))<>1)) 
+            
+            // kijken naar plaatsje erboven 
+            A2 = A - 1
+            A2 = A2(find(A2 > 0&modulo(A2,length(R))<>0)) 
+            
+            // kijken naar plaatse rechts
+            // alles wat een hogere index heeft dan er eigenlijk
+            // kan zijn, (rechts van het veld),
+            // verwijderen als mogelijkheid van vektor A
+            A3 = A + length(R)
+            A3 = A3(find(A3 <= length(R) * length(K))) 
+            
+            A4 = A + length(R) - 1
+            //modulo voor als hij een kolom verder springt
+            A4 = A4(find(A4 <= length(R) * length(K)&modulo(A4,length(R))<>0)) 
+            
+            A5 = A + length(R) + 1
+            A5 = A5(find(A5 <= length(R) * length(K)&modulo(A5,length(R))<>1)) 
+            
+            // kijken naar plaatsen links
+            // alles wat een lagere index heeft dan er eigenlijk
+            // kan zijn, (links van het veld),
+            // verwijderen als mogelijkheid van vektor A
+            A6 = A - length(R)
+            A6 = A6(find(A6 > 0))
+            
+            A7 = A - length(R) - 1
+            A7 = A7(find(A7 > 0&modulo(A7,length(R))<>0)) 
+            
+            A8 = A - length(R) + 1
+            A8 = A8(find(A8 > 0&modulo(A8,length(R))<>1)) 
+            
+            Atotaal = unique([A1,A2,A3,A4,A5,A6,A7,A8])
+            
+            M(Atotaal) = 0
+        return M
+    end
 endfunction
 
 function [M,T] = eenKansRondBoom (T,A,M,R,K)
@@ -206,33 +260,102 @@ function C = isOpgelost(T,M,R,K)
     // kijken of het juist is opgelost
     // tentjes aftrekken van de vector om 
     // te kijken of er genoeg tentjes staan
-    rij0 = R - sum(T,1) 
-    kolom0 = K - (sum(T,2))'
+    rij0 = R - (sum(T,2))' 
+    kolom0 = K - sum(T,1)
+    
     // de hele som van de rijvector moet 
     // nul zijn als we er de tenten van aftrekken
-    if(sum(rij0) == 0 & sum(kolom0) == 0)
-        return %T
+    if (sum(rij0) == 0 & sum(kolom0) == 0) then
+        C = %T
     else
-        return %F
+        C = %F
     end
 endfunction
 
-function [M,A,T] = losOp(T,M,A,R,K)
+function C = isVeilig(T,M,A,R,K)
+    
+  
+    C = %T
+    // kijken in rij dat er niet meer tentjes zijn
+    // dan er in de vektor zijn toegestaan
+    if sum(sum(T,2)' > R) <> 0 then
+        //C staat op true dus is het 1, als het fout is
+        //vermenigvuldigen met False(0) waardoor we 
+        //0 terug krijgen en het dus false is
+        C = C * %F
+    end
+    
+    // idem vorige maar met kolom
+    if sum(sum(T,1) > K) <> 0 then
+        C = C * %F
+    end
+    
+    disp("test1")
+    //geen 2 tentjes naast elkaar
+    for i = 1 : length(R)
+        for j = 1 : length(K)
+            disp("test")
+            // Controleer of dat links,rechts,onder en boven, hoeken geen tent staat
+            if (T(i ,j)==1) 
+                & ((T(max(i-1,1),j)==1) 
+                | (T(min(i+1,length(R)),j)==1) 
+                | (T(i,max(j-1,1)))==1
+                | (T(i,min(j+1,length(K)))==1) 
+                | (T(min(i+1,length(R)),max(j-1,1))==1)
+                | (T(min(i+1,length(R)),min(j+1,length(K))==1)
+                | (T(max(i-1,1),max(j-1,1)))==1)
+                | (T(max(i-1,1),min(j+1,length(K)))==1))
+                then 
+                C = C * %F
+                disp(C)
+            end
+        end
+    end
+    
+endfunction
+
+function [M,T] = losOp(T,M,A,R,K)
     if isOpgelost(T,M,R,K) then
-        return %T
+//        global T3
+//        T3 = T
+//        global M3
+//        M3 = M
+        // functie om vroegtijdig te stoppen??
+        disp("opgelost")
+        return M,T
     end
-    
+
     T1 = T
-    M = mogelijkhedenVolgensVec(T,M,R,K)    
-    [M,T] = tentjesVolgensVector(T,M,R,K)
-    M = geenMogelijkheidRondTent(T,M,R,K)
-    [M,T] = eenKansRondBoom(T,A,M,R,K)
-    
-    if sum(T <> T1) <> 0
-       return %T
-    else
-       return %F
+    M1 = M
+    M1 = mogelijkhedenVolgensVec(T1,M1,R,K)         
+    M1 =geenMogelijkheidRondTent(T1,M1,R,K)
+    [M1,T1] = tentjesVolgensVector(T1,M1,R,K)
+    M1 = geenMogelijkheidRondTent(T1,M1,R,K)
+//    [M1,T1] = eenKansRondBoom(T1,A,M1,R,K)
+//    M1 = geenMogelijkheidRondTent(T1,M1,R,K)
+
+    if sum(M<>M1)<> 0 & isVeilig(T1,M1,A,R,K)
+       [M,T] = losOp(T1,M1,A,R,K)
     end
-     //verandert?
-    
+
+    // zoek volgende locatie
+
+    M2 = M
+    T2 = T
+    M2(find(M==1,1)) = 0
+    if sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K)
+       [M,T] = losOp(T2,M2,A,R,K)
+    end
+
+    // zoek volgende locatie
+
+    M2 = M
+    T2 = T
+    T2(find(M==1,1)) = 1
+    M2(find(M==1,1)) = 0
+    if sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K)
+       [M,T] = losOp(T2,M2,A,R,K)
+    end
+
+    return M,T
 endfunction
