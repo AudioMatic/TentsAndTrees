@@ -2,78 +2,12 @@ x = 7  // leeg vakje (geel)
 g = 3  // gras (lichtgroen)
 b = 13 // boom (donkergroen)
 t = 6 // tent (paars)
-
-      
-A11 = [x x b x x x x x x x x x x x x x b x x x x x b x x; 
-       x b x x x b b b x x b x x b x b x x x x x x x x x;       
-       x x b x x x x b b x x x x x x x b x x b x x x x b; 
-       x x x b x x x x x x b x b x x x x x x x b x x x x;       
-       x x b x x b x x x x b x x x x b x x b b x x b x x;      
-       x x x x x x b x x x x x x b b x x b x x x x x x x;        
-       b x x x b x x x x b b x b x x x x x b x x x x x b;
-       x x x x x x x x x x x x x x x b x x x x x x x x x;      
-       x b b x b x x x x x b x x x x x x x x x x x b x x;
-       x x x x x x x x b b x x x x x x b x b x x x b x x;       
-       x b x b x x x x x x x x b x b x x x x x x x b x x;
-       x b x x b x x x x x x b x x x b b x b x x x x x x; 
-       x x x x x x b x x b x x x b x x x b x b b x x x b;
-       x x x x x x x x x x b x x x x x x x x x x x x x x; 
-       x x x b x b x x x x x x b x x x x b x x x x b x x;
-       x x b x x x x x x x b x x b x x x x b x x x x x x;            
-       x x b x x x x x x x x x x x x x x x x x x x b x x; 
-       x b x x x b b b x x x x x x x b x x x x x x b x x
-       x x b x x x x b b x x x x x x x b x x b x x x x x; 
-       x x x b x x x x x x b x b x x x b x x x b x x x b;      
-       x x x x x x x x x x x x x x x x x x x x x x b x b;
-       b x x b x x b b x b b b b x x b x b b x b x x x x;
-       x b x x x b x x x x x x x b x x x x x x x x b x x;
-       x b x x x x x x x b x x x x x x b x x x b x x x x;
-       x x b x x x b x x x b x x x x x x b x x x x x x b;]
-K11 = [6 4 6 3 8 1 9 3 4 7 4 7 4 5 3 7 1 10 2 9 2 5 0 12 1]
-R11 = [6 5 5 6 5 5 6 2 4 5 6 4 6 3 2 7 2 7 5 5 7 0 9 2 9]   
-
-A3 = [x x b x x; 
-      b x x b x; 
-      x x x x x; 
-      b x x x x; 
-      x x x x b]
-K3 = [2 1 0 0 2]
-R3 = [1 1 1 1 1]         
-B3 = [g t b g g; 
-      b g g b t; 
-      t g g g g; 
-      b g g g t; 
-      t g g g b]
-      
-A9 = [x x x x x b x x; 
-      x x b x b x b x; 
-      x x b b x x x x; 
-      x x x x x b x x; 
-      x x x x x x x x;
-      x b x x x x x x;
-      x x b x x x b x;
-      x x b x b x x x]
-K9 = [1 2 1 1 2 2 2 1]
-R9 = [2 1 2 1 1 1 2 2]  
-B2 = [x,x,x,b,x,b,x,x;
-     x,x,x,x,x,x,b,x;
-     b,x,x,x,x,x,x,x;
-     x,b,x,x,x,x,x,x;
-     x,x,x,x,b,x,b,x;
-     b,x,x,x,b,x,x,x;
-     x,x,x,x,b,x,b,x;
-     x,b,x,x,x,x,x,x;]
-     
-R2 = [2,1,1,2,2,1,2,1]
-K2 = [2,1,2,1,1,1,3,1]
-
 function X = solveTentjeBoompje(B,R,K)
     T = zeros(B) 
     A = geefBoompjes(B)
     M = berekenMogelijkheden(B,R,K)
     M = mogelijkhedenVolgensVec(T,M,R,K)    
     [M,T] = losOp(T,M,A,R,K)
-
     X = zeros(B)
     X(find(T==1))=t
     X(find(A==1))=b
@@ -81,7 +15,6 @@ function X = solveTentjeBoompje(B,R,K)
    
 return X
 endfunction
-
 function G = berekenMogelijkheden(B,R,K)
     //Functie plaatsGrasWaarGeenBoom herschreven 
     // zonder forlus voor beter efficiëntie
@@ -119,10 +52,8 @@ function G = berekenMogelijkheden(B,R,K)
     // de matrix G is een matrix met de mogelijkheden
     G(find(G<0)) = 0
     G(find(G>0)) = 1    
-
 return G
 endfunction
-
 function M = mogelijkhedenVolgensVec(T,M,R,K)
     // waar er 0 staat in de vector of het aantal tentjes gelijk 
     // is aan de vector is er geen mogelijkheid
@@ -134,7 +65,6 @@ function M = mogelijkhedenVolgensVec(T,M,R,K)
     M(:,find(kolom0==0))=0    
 return M
 endfunction
-
 function H = geefBoompjes(B)
     //een matrix met de boompjes teruggeven
     H = B
@@ -143,7 +73,6 @@ function H = geefBoompjes(B)
     
 return H   
 endfunction
-
 function [M,T] = tentjesVolgensVector(T,M,R,K)
     // tentjes zetten waar vector gelijk is aan mogelijkheden + tentjes
     // rijen checken
@@ -162,7 +91,6 @@ function [M,T] = tentjesVolgensVector(T,M,R,K)
     
 return
 endfunction
-
 function M = geenMogelijkheidRondTent (T,M,R,K)
  
     if sum(T) > 0 then
@@ -213,7 +141,6 @@ function M = geenMogelijkheidRondTent (T,M,R,K)
         return M
     end
 endfunction
-
 function [M,T] = eenKansRondBoom (T,A,M,R,K)
     // nieuwe lege matrix aanmaken
     M1 = zeros(M)
@@ -253,9 +180,7 @@ function [M,T] = eenKansRondBoom (T,A,M,R,K)
     
 return
 endfunction
-
 // BACKTRACKING
-
 function C = isOpgelost(T,M,R,K)
     // kijken of het juist is opgelost
     // tentjes aftrekken van de vector om 
@@ -271,10 +196,10 @@ function C = isOpgelost(T,M,R,K)
         C = %F
     end
 endfunction
-
-function C = isVeilig(T,M,A,R,K)
+function C =isVeilig(T,M,A,R,K)
+    //KOMT NIET IN DE CODE?!!!
+    disp("test0")
     
-  
     C = %T
     // kijken in rij dat er niet meer tentjes zijn
     // dan er in de vektor zijn toegestaan
@@ -290,30 +215,51 @@ function C = isVeilig(T,M,A,R,K)
         C = C * %F
     end
     
-    disp("test1")
-    //geen 2 tentjes naast elkaar
-    for i = 1 : length(R)
-        for j = 1 : length(K)
-            disp("test")
-            // Controleer of dat links,rechts,onder en boven, hoeken geen tent staat
-            if (T(i ,j)==1) 
-                & ((T(max(i-1,1),j)==1) 
-                | (T(min(i+1,length(R)),j)==1) 
-                | (T(i,max(j-1,1)))==1
-                | (T(i,min(j+1,length(K)))==1) 
-                | (T(min(i+1,length(R)),max(j-1,1))==1)
-                | (T(min(i+1,length(R)),min(j+1,length(K))==1)
-                | (T(max(i-1,1),max(j-1,1)))==1)
-                | (T(max(i-1,1),min(j+1,length(K)))==1))
-                then 
-                C = C * %F
-                disp(C)
-            end
-        end
+    //geen twee tentjes naast elkaar
+    
+    // nieuwe lege matrix aanmaken
+    T1 = zeros(T)
+    // eentje omhoog
+    T1(1:length(R)-1,:) = T1(1:length(R)-1,:) + T(2:length(R),:)
+    // eentje omlaag
+    T1(2:length(R),:) = T1(2:length(R),:) + T(1:length(R)-1,:)
+    // eentje links
+    T1(:,1:length(K)-1) = T1(:,1:length(K)-1) + T(:,2:length(K))
+    // eentje rechts
+    T1(:,2:length(K)) = T1(:,2:length(K)) + T(:,1:length(K)-1)
+    //linkerbovenhoek
+    T1(1:length(R)-1,1:length(K)-1) = T1(1:length(R)-1,1:length(K)-1) + T(2:length(R),2:length(K))
+    //rechterbovenhoek
+    T1(1:length(R)-1,2:length(K)) = T1(1:length(R)-1,2:length(K)) + T(2:length(R),1:length(K)-1)
+    //linkeronderhoek
+    T1(2:length(R),1:length(K)-1) = T1(2:length(R),1:length(K)-1) + T(1:length(R)-1,2:length(K))
+    //rechteronderhoek
+    T1(2:length(R),2:length(K)) = T1(2:length(R),2:length(K)) + T(1:length(R)-1:length(K)-1)
+    
+    // TP = tentplaats
+    TP = find(T==1)
+    // TRT= tentRondTent
+    TRT = T1(TP)
+    
+    // als er iets groter dan 1 is staat er ergens een tentje naast elkaar
+    if (sum(TRT==1) > 1) then 
+        C = %F
     end
     
+//     //KOMT IN DE CODE MAAR KLOPT NIET?!!
+//    //geen 2 tentjes naast elkaar
+//    
+//    for i = 1 : length(R)
+//        for j = 1 : length(K)
+//            // Controleer of dat links,rechts,onder en boven, hoeken geen tent staat
+//            if (T(i ,j)==1) & ((T(max(i-1,1),j)==1) | (T(min(i+1,length(R)),j)==1) | (T(i,max(j-1,1))==1)| (T(i,min(j+1,length(K)))==1) | (T(min(i+1,length(R)),max(j-1,1))==1)| (T(min(i+1,length(R)),min(j+1,length(K)))==1)| (T(max(i-1,1),max(j-1,1))==1)| (T(max(i-1,1),min(j+1,length(K)))==1)) then 
+//                C = %F
+//            end
+//        end
+//    end
+    
+    return C
 endfunction
-
 function [M,T] = losOp(T,M,A,R,K)
     if isOpgelost(T,M,R,K) then
 //        global T3
@@ -321,10 +267,8 @@ function [M,T] = losOp(T,M,A,R,K)
 //        global M3
 //        M3 = M
         // functie om vroegtijdig te stoppen??
-        disp("opgelost")
         return M,T
     end
-
     T1 = T
     M1 = M
     M1 = mogelijkhedenVolgensVec(T1,M1,R,K)         
@@ -333,29 +277,23 @@ function [M,T] = losOp(T,M,A,R,K)
     M1 = geenMogelijkheidRondTent(T1,M1,R,K)
 //    [M1,T1] = eenKansRondBoom(T1,A,M1,R,K)
 //    M1 = geenMogelijkheidRondTent(T1,M1,R,K)
-
-    if sum(M<>M1)<> 0 & isVeilig(T1,M1,A,R,K)
+    if (sum(M<>M1)<> 0 & isVeilig(T1,M1,A,R,K))
        [M,T] = losOp(T1,M1,A,R,K)
     end
-
     // zoek volgende locatie
-
     M2 = M
     T2 = T
     M2(find(M==1,1)) = 0
-    if sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K)
+    if (sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K))
        [M,T] = losOp(T2,M2,A,R,K)
     end
-
     // zoek volgende locatie
-
     M2 = M
     T2 = T
     T2(find(M==1,1)) = 1
     M2(find(M==1,1)) = 0
-    if sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K)
+    if (sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K))
        [M,T] = losOp(T2,M2,A,R,K)
     end
-
     return M,T
 endfunction
