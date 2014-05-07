@@ -389,5 +389,5 @@ function [Pjuist,Pfout] = percentageCorrIngevuld(V,sV)
     Pjuist = Pjuist / totaalVakken;
     Pfout = Pfout / totaalVakken;
 endfunction
-//solveTentjeBoompje(A9,R9,K9)
+solveTentjeBoompje(A9,R9,K9)
 testSolveTB()

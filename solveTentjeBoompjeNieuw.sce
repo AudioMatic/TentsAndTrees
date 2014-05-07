@@ -13,6 +13,10 @@ function X = solveTentjeBoompje(B,R,K)
     X(find(A==1))=b
     X(find(X==0))=g
    
+    Matplot(X)
+  Rom  = R($:-1:1)
+   xlabel(string(K))
+   ylabel(string(Rom)) 
 return X
 endfunction
 function G = berekenMogelijkheden(B,R,K)
@@ -197,8 +201,8 @@ function C = isOpgelost(T,M,R,K)
     end
 endfunction
 function C =isVeilig(T,M,A,R,K)
-    //KOMT NIET IN DE CODE?!!!
-    disp("test0")
+   
+    
     
     C = %T
     // kijken in rij dat er niet meer tentjes zijn
@@ -245,7 +249,7 @@ function C =isVeilig(T,M,A,R,K)
     if (sum(TRT==1) > 1) then 
         C = %F
     end
-    
+//    
 //     //KOMT IN DE CODE MAAR KLOPT NIET?!!
 //    //geen 2 tentjes naast elkaar
 //    
