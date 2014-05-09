@@ -536,7 +536,7 @@ function [M,T] = losOp(T,M,A,R,K)
     disp("----------")
     disp(sum(M<>M2))
     disp(isVeilig(T2,M2,A,R,K))
-    if (sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K)~=%T )
+    if (sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K)≃ )
        [M,T] = losOp(T2,M2,A,R,K)
     end
 
