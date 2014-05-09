@@ -562,7 +562,7 @@ function [M,T] = losOp(T,M,A,R,K)
     A1 = verminderBomen(T2,A)
     M2 = berekenMogelijkheden(A1,R,K,M2)
 //      if (sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K)~=%T )
-    if (sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K))
+    if (sum(M<>M2)<> 0 | isVeilig(T2,M2,A,R,K))
        [M,T] = losOp(T2,M2,A,R,K)
     end   
     
