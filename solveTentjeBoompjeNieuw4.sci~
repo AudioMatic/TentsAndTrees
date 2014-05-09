@@ -536,9 +536,21 @@ function [M,T] = losOp(T,M,A,R,K)
     disp("----------")
     disp(sum(M<>M2))
     disp(isVeilig(T2,M2,A,R,K))
-    if (sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K)≃ )
+//    pause
+    if(length(R)>5 & length(K)>5)
+        disp("lengte R" + leng)
+         if (sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K)~=%T )
+//    if (sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K))
        [M,T] = losOp(T2,M2,A,R,K)
+        end
+    else
+    
+        if (sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K))
+       [M,T] = losOp(T2,M2,A,R,K)
+        end
     end
+    
+
 
     // zoek volgende locatie
     M2 = M
@@ -551,6 +563,7 @@ function [M,T] = losOp(T,M,A,R,K)
     M2 = geenMogelijkheidRondTent(T2,M2,R,K)
     A1 = verminderBomen(T2,A)
     M2 = berekenMogelijkheden(A1,R,K,M2)
+//      if (sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K)~=%T )
     if (sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K))
        [M,T] = losOp(T2,M2,A,R,K)
     end   
