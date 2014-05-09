@@ -347,7 +347,7 @@ function testSolveTB()
     Pjuist = round(Pjuist*1000)/10;
     Pfout = round(Pfout*1000)/10
     disp("Percentage correct ingevulde vakjes = "); disp(Pjuist);
-    disp("Percentage foutief ingevulde vukjes = "); disp(Pfout); 
+    disp("Percentage foutief ingevulde vakjes = "); disp(Pfout); 
     disp("Percentage lege vakjes = "); disp(100-Pjuist-Pfout);   
     disp("Totale tijd in seconden = "); disp(time);
 endfunction
@@ -389,5 +389,5 @@ function [Pjuist,Pfout] = percentageCorrIngevuld(V,sV)
     Pjuist = Pjuist / totaalVakken;
     Pfout = Pfout / totaalVakken;
 endfunction
-//solveTentjeBoompje(A10,R10,K10)
+//solveTentjeBoompje(A12,R12,K12)
 testSolveTB()

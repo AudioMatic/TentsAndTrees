@@ -46,12 +46,12 @@ function X = solveTentjeBoompje(B,R,K)
     X(find(A==1))=b
     X(find(M==1))=x
     X(find(X==0))=g
-    
-   Matplot(X)
-  Rom  = R($:-1:1)
-   xlabel(string(K))
-   ylabel(string(Rom)) 
- 
+//    
+//   Matplot(X)
+//  Rom  = R($:-1:1)
+//   xlabel(string(K))
+//   ylabel(string(Rom)) 
+// 
 return X
 endfunction
 
@@ -190,7 +190,6 @@ function M = mogelijkhedenVolgensVec(T,M,R,K)
     // is aan de vector is er geen mogelijkheid
     // we willen weten welke er nul zijn (rij0)
     
-    // INVALID SUBTRACTION!
     rij0 = R - (sum(T,2))' 
     kolom0 = K - sum(T,1)
     
@@ -298,7 +297,6 @@ function M = geenMogelijkheidRondTent (T,M,R,K)
 endfunction
 
 function [M,T] = eenKansRondBoom (T,A,M,R,K)
- // PROBLEEM : als er in de buurt nog een boom is, kan hij niet kiezen van welke boom hij het tentje moest zetten -> fout
     M = M + T
     // nieuwe lege matrix aanmaken
     M1 = zeros(M)
@@ -523,6 +521,19 @@ function [M,T] = losOp(T,M,A,R,K)
         M1 = geenMogelijkheidRondTent(T1,M1,R,K)
         A1 = verminderBomen(T1,A1)
         M1 = berekenMogelijkheden(A1,R,K,M1) 
+//        
+//        if(length(R)>9 & length(K)>9)
+//         if (sum(M<>M1)<> 0 & isVeilig(T1,M1,A,R,K)~=%T )
+//
+//       [M,T] = losOp(T1,M1,A,R,K)
+//        end
+//    else
+//        if (sum(M<>M1)<> 0 & isVeilig(T1,M1,A,R,K))
+//       [M,T] = losOp(T1,M1,A,R,K)
+//        end
+//    end
+        
+        
 
     if (sum(M<>M1)<> 0 & isVeilig(T1,M1,A,R,K))
        [M,T] = losOp(T1,M1,A,R,K)
@@ -532,11 +543,11 @@ function [M,T] = losOp(T,M,A,R,K)
     M2 = M
     T2 = T
     M2(find(M==1,1)) = 0
-    disp("DEBUG INFO")
-    disp("----------")
-    disp(sum(M<>M2))
-    disp(isVeilig(T2,M2,A,R,K))
-//    pause
+//    disp("DEBUG INFO")
+//    disp("----------")
+//    disp(sum(M<>M2))
+//    disp(isVeilig(T2,M2,A,R,K))
+////    pause
     if(length(R)>9 & length(K)>9)
          if (sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K)~=%T )
 
@@ -561,10 +572,16 @@ function [M,T] = losOp(T,M,A,R,K)
     M2 = geenMogelijkheidRondTent(T2,M2,R,K)
     A1 = verminderBomen(T2,A)
     M2 = berekenMogelijkheden(A1,R,K,M2)
+
+//     disp("DEBUG INFO")
+//    disp("----------")
+//    disp(sum(M<>M2))
+//    disp(isVeilig(T2,M2,A,R,K))
+//    pause
 //      if (sum(M<>M2)<> 0 & isVeilig(T2,M2,A,R,K)~=%T )
     if (sum(M<>M2)<> 0 | isVeilig(T2,M2,A,R,K))
        [M,T] = losOp(T2,M2,A,R,K)
     end   
-    
+
 return M,T
 endfunction
